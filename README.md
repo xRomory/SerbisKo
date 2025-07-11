@@ -15,7 +15,7 @@
 
 In the Philippines, many skilled workers don’t know how to market themselves online unless they’re connected to a company or rely on word-of-mouth via Facebook. **SerbisKo** gives these freelancers a platform to offer their services, gain reviews, and get discovered — even if they don’t know how to write a long promotional post.
 
-This platform is built **by Filipinos, for Filipinos**, and aims to become the go-to service hub for local communities.
+This platform is built **by a Filipino, for Filipinos**, and aims to become the go-to service hub for local communities.
 
 ---
 
