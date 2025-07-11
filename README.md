@@ -173,5 +173,5 @@ Read more: [https://creativecommons.org/licenses/by-nc/4.0](https://creativecomm
 
 ---
 
-> 🧰 **"You don’t need a big agency to get noticed — you just need a place where your skills speak for themselves."**  
+>  _**"You don’t need a big agency to get noticed — you just need a place where your skills speak for themselves."**_  
 > — *SerbisKo*
