@@ -1,20 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import type { NavItem, AuthButton } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-
-interface NavItem {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
-interface AuthButton {
-  label: string;
-  href: string;
-  variant?: "default" | "ghost" | "outline";
-}
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
@@ -29,7 +18,7 @@ const AUTH_BUTTONS: AuthButton[] = [
   { label: "Sign Up", href: "/signup", variant: "default" },
 ];
 
-export default function Navbar() {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (

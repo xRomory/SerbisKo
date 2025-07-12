@@ -1,10 +1,16 @@
-import React from 'react'
-import Navbar from '@/components/utils/Navbar';
+// import React from "react"
+import { Navbar } from "@/components/utils/Navbar";
+import Hero from "@/components/LandingPage/Hero";
+import MainContent from "@/components/LandingPage/MainContent";
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
+      <main className="flex-1">
+        <Hero />
+        <MainContent />
+      </main>
     </div>
   );
 };
