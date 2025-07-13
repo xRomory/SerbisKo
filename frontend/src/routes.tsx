@@ -1,7 +1,9 @@
 import LandingPage from "@/pages/LandingPage";
+import Login from "@/pages/Login";
 import { NotFound } from "@/pages/NotFound";
 
 export const routes = [
   { index: true, element: <LandingPage /> },
+  { path: "/login", element: <Login /> },
   { path: "*", element: <NotFound /> }
 ]

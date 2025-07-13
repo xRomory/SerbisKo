@@ -25,7 +25,7 @@ const LEGAL_ITEM: LinkItem[] = [
 
 export default function Footer() {
   return (
-    <footer className="border-t">
+    <footer className="border-t px-4">
       <div className="container mx-auto py-10 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -93,7 +93,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t-2">
+        <div className="mt-10 pt-6 border-t">
           <p className="text-xs text-muted-foreground text-center">
             © {new Date().getFullYear()} SerbisKo. All rights reserved.
           </p>
