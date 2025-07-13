@@ -9,3 +9,8 @@ export interface AuthButton {
   href: string;
   variant?: "default" | "ghost" | "outline";
 }
+
+export interface LinkItem {
+  label: string;
+  href: string
+}
