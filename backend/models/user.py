@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer
+from sqlalchemy import Column, String, Boolean, Integer, Float
 from sqlalchemy.orm import relationship
 from database import Base
 import uuid
@@ -17,6 +17,9 @@ class User(Base):
     address_line = Column(String, nullable=False)
     region = Column(String, nullable=False)
     city = Column(String, nullable=False)
+    
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     
     role = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)

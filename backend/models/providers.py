@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Integer, ForeignKey
+from sqlalchemy import Column, String, Boolean, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -7,6 +7,9 @@ class ServiceProvidersProfile(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     
     # Profile Completion
     service_type = Column(String, nullable=False)
