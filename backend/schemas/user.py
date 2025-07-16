@@ -1,5 +1,11 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Literal, Optional, Annotated
+from typing import Optional, Annotated
+from datetime import datetime
+from enum import Enum
+
+class UserRoleEnum(str, Enum):
+    customer = "customer"
+    provider = "provider"
 
 PasswordStr = Annotated[
         str,
@@ -14,7 +20,7 @@ class UserBase(BaseModel):
     address_line: Optional[str]
     region: str
     city: str
-    role: Literal["customer", "provider"]
+    role: UserRoleEnum
     
 class UserCreate(UserBase):
     password: PasswordStr
@@ -28,7 +34,9 @@ class UserOut(BaseModel):
     phone_number: str
     region: str
     city: str
-    role: str
+    role: UserRoleEnum
+    reated_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     
     class Config:
         orm_mode = True
