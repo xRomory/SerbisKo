@@ -4,3 +4,5 @@ __pycache__/
 .env
 .env.local
 .env.*
+
+ph_regions_cities.json
