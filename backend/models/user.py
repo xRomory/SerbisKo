@@ -1,12 +1,8 @@
 from sqlalchemy import Column, String, Boolean, Integer, Float, Enum, DateTime, func
 from sqlalchemy.orm import relationship
 from database import Base
+from common.types import UserRoleEnum
 import uuid
-import enum
-
-class UserRoleEnum(str, enum.Enum):
-    customer = "customer"
-    provider = "provider"
 
 class User(Base):
     __tablename__ = "users"
