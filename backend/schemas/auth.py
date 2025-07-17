@@ -1,9 +1,9 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
-from common.types import PasswordStr, PHPhoneFormat, UserRoleEnum
+from common.types import PHPhoneFormat, UserRoleEnum, PasswordStr
 
-class UserBase(BaseModel):
+class SignUpRequest(BaseModel):
     first_name: str
     last_name: str
     email: EmailStr
@@ -12,22 +12,29 @@ class UserBase(BaseModel):
     region: str
     city: str
     role: UserRoleEnum
-    
-class UserCreate(UserBase):
     password: PasswordStr
     confirm_password: PasswordStr
     
-class UserOut(BaseModel):
-    public_id: str
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+    
+class AuthResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
     first_name: str
     last_name: str
     email: EmailStr
-    phone_number: PHPhoneFormat
+    phone_number: str
+    address_line: Optional[str]
     region: str
     city: str
     role: UserRoleEnum
-    reated_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    user_id: str
+    expires_in: int
+    created_at: datetime
     
     class Config:
-        orm_mode = True
+        json_encoders = {
+            datetime: lambda v: v.isoformat()
+        }
