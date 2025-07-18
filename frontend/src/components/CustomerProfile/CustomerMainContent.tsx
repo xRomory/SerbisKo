@@ -7,6 +7,7 @@ import {
   TabsContent,
   TabsTrigger
 } from "@/components/ui/tabs";
+import CustomerBookingsTab from "@/components/CustomerProfile/CustomerBookingsTab";
 
 interface CustomerMainContentProps {
   userData: UserData;
@@ -27,6 +28,9 @@ export const CustomerMainContent: React.FC<CustomerMainContentProps> = ({ userDa
 
         <TabsContent value="profile">
           <CustomerProfileTab userData={userData} isEditing={isEditing} setIsEditing={setIsEditing} editedData={{ ...userData }} setEditedData={setUserData}/>
+        </TabsContent>
+        <TabsContent value="bookings">
+          <CustomerBookingsTab />
         </TabsContent>
       </Tabs>
     </div>
