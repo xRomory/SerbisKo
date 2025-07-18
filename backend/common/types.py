@@ -14,5 +14,5 @@ PasswordStr = Annotated [
 
 PHPhoneFormat = Annotated [
     str,
-    Field(min_length=10, max_length=15, regex=r"^(09|\+639)\d{9}$", description="Must be a valid Philippine mobile number (e.g., 09171234567 or +639171234567)")
+    Field(min_length=10, max_length=15, pattern=r"^(09|\+639)\d{9}$", description="Must be a valid Philippine mobile number (e.g., 09171234567 or +639171234567)")
 ]

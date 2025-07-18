@@ -31,7 +31,7 @@ class ServiceProviderProfile(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
-    user = relationship("User", back_populates="provider_profiles")
+    user = relationship("User", back_populates="provider_profile")
     reviews = relationship("Review", back_populates="provider")
     
     __table_args__ = (
