@@ -115,3 +115,83 @@ export const testimonials = [
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80"
   }
 ];
+
+// Sample booking data
+export const bookings = [
+  {
+    id: "b1",
+    serviceId: "s1",
+    serviceName: "Plumbing Repair",
+    providerId: "p1",
+    providerName: "Juan Dela Cruz",
+    providerImage: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80",
+    date: "2023-07-25",
+    time: "10:00 AM",
+    status: "completed",
+    price: 1500,
+    currency: "₱",
+    address: "123 Rizal Street, Makati City",
+    rating: 4.8
+  },
+  {
+    id: "b2",
+    serviceId: "s2",
+    serviceName: "House Cleaning",
+    providerId: "p2",
+    providerName: "Maria Santos",
+    providerImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    date: "2023-07-30",
+    time: "9:00 AM",
+    status: "upcoming",
+    price: 2000,
+    currency: "₱",
+    address: "456 Bonifacio Avenue, Quezon City",
+    rating: null
+  },
+  {
+    id: "b3",
+    serviceId: "s3",
+    serviceName: "Math Tutoring",
+    providerId: "p3",
+    providerName: "Carlos Reyes",
+    providerImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    date: "2023-07-18",
+    time: "4:00 PM",
+    status: "cancelled",
+    price: 400,
+    currency: "₱",
+    address: "789 Mabini Street, Manila",
+    rating: null
+  }
+];
+
+// Sample saved services
+export const savedServices = [
+  {
+    id: "s1",
+    title: "Professional Plumbing Services",
+    providerId: "p1",
+    providerName: "Juan Dela Cruz",
+    rating: 4.9,
+    reviewCount: 124,
+    image: "https://images.unsplash.com/photo-1621905251189-08b45249ff78?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80"
+  },
+  {
+    id: "s2",
+    title: "Expert Electrical Repairs",
+    providerId: "p4",
+    providerName: "Antonio Reyes",
+    rating: 4.7,
+    reviewCount: 98,
+    image: "https://images.unsplash.com/photo-1621905252507-c93c6acec5e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80"
+  },
+  {
+    id: "s3",
+    title: "Piano Lessons for All Ages",
+    providerId: "p5",
+    providerName: "Sofia Garcia",
+    rating: 5.0,
+    reviewCount: 56,
+    image: "https://images.unsplash.com/photo-1552422535-c45813c61732?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+  }
+];

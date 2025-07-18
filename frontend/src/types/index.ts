@@ -14,3 +14,13 @@ export interface LinkItem {
   label: string;
   href: string
 }
+
+export interface UserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  bio: string;
+}
