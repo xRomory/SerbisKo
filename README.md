@@ -102,7 +102,7 @@ I plan to use FastAPI for the backend because of its:
 SerbisKo/
 ├── README.md
 ├── frontend/       # ReactJS + Vite + Tailwind + shadcn/ui
-├── backend/        # FastAPI backend (soon)
+├── backend/        # FastAPI + Pydantic backend 
 └── ai/             # Placeholder for future AI integration
 ```
 
@@ -135,6 +135,7 @@ npm run dev
 ```bash
 cd backend
 # Setup virtual environment and dependencies
+pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
