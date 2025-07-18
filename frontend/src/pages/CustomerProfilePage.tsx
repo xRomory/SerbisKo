@@ -26,4 +26,4 @@ export const CustomerProfilePage = () => {
       </main>
     </div>
   )
-}
+};
