@@ -54,7 +54,7 @@ export const Signup = () => {
                 onValueChange={setActiveTab}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-2 bg-ghost-hover">
+                <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="customer" className="text-xs">
                     Customer Sign Up
                   </TabsTrigger>
