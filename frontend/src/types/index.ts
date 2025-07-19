@@ -24,3 +24,38 @@ export interface UserData {
   city: string;
   bio: string;
 }
+
+export interface ProviderReview {
+  author: string;
+  rating: number;
+  date: string;
+  comment: string;
+}
+
+export interface ProviderPackageRate {
+  name: string;
+  price: string;
+  description: string;
+}
+
+export interface ProvidersType {
+  id: string;
+  name: string;
+  title: string;
+  tagline: string;
+  rating: number;
+  review_number: number;
+  completedJobs: number;
+  yearsOfExperience: number;
+  hourlyRate: string;
+  packageRates: ProviderPackageRate[];
+  location: string;
+  languages: string[];
+  availability: string;
+  about: string;
+  services: string[];
+  servicesDescription: string;
+  profileImage: string;
+  galleryImages: string[];
+  reviews: ProviderReview[];
+}

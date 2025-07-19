@@ -97,7 +97,8 @@ export default function CustomerBookingsTab() {
                     <div>
                       <p className="text-sm text-muted-foreground">Price</p>
                       <p className="font-medium text-sm flex items-center">
-                        {booking.currency}{booking.price}
+                        {booking.currency}
+                        {booking.price}
                       </p>
                     </div>
                   </div>
@@ -110,23 +111,26 @@ export default function CustomerBookingsTab() {
                       Leave a Review
                     </Button>
                   ) : booking.status === "completed" && booking.rating ? (
-                    <Button>
+                    <div className="flex items-center">
                       <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
                       <span>{booking.rating}</span>
-                      <span className="ml-2">Rated</span>
-                    </Button>
+                      <span className="ml-2 text-muted-foreground">Rated</span>
+                    </div>
                   ) : booking.status === "upcoming" ? (
                     <>
                       <Button>
                         <MessageSquare className="hr-4 w-4 mr-2" />
                         Contact Provider
                       </Button>
-                      <Button variant="destructive">
-                        Cancel Booking
-                      </Button>
+                      <Button variant="destructive">Cancel Booking</Button>
                     </>
                   ) : null}
-                  <Button variant="ghost" className="border-border border bg-input">View Details</Button>
+                  <Button
+                    variant="ghost"
+                    className="border-border border bg-input"
+                  >
+                    View Details
+                  </Button>
                 </div>
               </div>
             </Card>
