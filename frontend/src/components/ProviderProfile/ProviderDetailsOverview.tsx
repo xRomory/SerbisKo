@@ -1,4 +1,3 @@
-import React from "react";
 import type { ProvidersType } from "@/types";
 import { Badge } from "../ui/badge";
 import { Clock } from "lucide-react";
@@ -16,16 +15,16 @@ export default function ProviderDetailsOverview({ provider }: ProviderOverviewPr
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-accent rounded-lg p-4 text-center">
-          <div className="text-amber-500 font-bold text-xl mb-1">{provider.completedJobs}</div>
+        <div className="bg-emerald-100 rounded-lg p-4 text-center">
+          <div className="text-emerald-600 font-bold text-xl mb-1">{provider.completedJobs}</div>
           <div className="text-secondary-foreground text-sm">Jobs Completed</div>
         </div>
         <div className="bg-sky-100 rounded-lg p-4 text-center">
           <div className="text-sky-600 font-bold text-xl mb-1">{provider.yearsOfExperience}</div>
           <div className="text-secondary-foreground text-sm">Experience</div>
         </div>
-        <div className="bg-emerald-100 rounded-lg p-4 text-center">
-          <div className="text-emerald-600 font-bold text-xl mb-1">{provider.rating}</div>
+        <div className="bg-accent rounded-lg p-4 text-center">
+          <div className="text-amber-600 font-bold text-xl mb-1">{provider.rating}</div>
           <div className="text-secondary-foreground text-sm">Avg. Rating</div>
         </div>
         <div className="bg-pink-100 rounded-lg p-4 text-center">
