@@ -14,3 +14,8 @@ def get_regions_and_cities(db: Session = Depends(get_db)):
         region_map.setdefault(region, []).append(city)
         
     return region_map
+
+@router.get("/cities")
+def get_all_cities(db: Session = Depends(get_db)):
+    cities = db.query(Location.city).distinct().order_by(Location.city).all()
+    return [city[0] for city in cities]
