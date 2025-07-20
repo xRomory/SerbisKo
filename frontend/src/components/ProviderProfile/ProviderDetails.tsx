@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { providersData } from "@/mock/mock-data";
+import { BookingsSection } from "@/components/ProviderProfile/BookingsSection";
 import ProviderDetailsOverview from "@/components/ProviderProfile/ProviderDetailsOverview";
 import ProviderDetailsServices from "@/components/ProviderProfile/ProviderDetailsServices";
 import ProviderDetailsReviews from "@/components/ProviderProfile/ProviderDetailsReviews";
@@ -14,7 +14,6 @@ import {
 
 export const ProviderDetails = () => {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState<string>("overview");
 
   const provider = providersData.find((p) => p.id === id) || providersData[0];
 
@@ -24,7 +23,6 @@ export const ProviderDetails = () => {
         <Tabs
           defaultValue="overview"
           className="w-full"
-          onValueChange={setActiveTab}
         >
           <TabsList className="grid grid-cols-4 mb-8 w-full">
             <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -45,6 +43,12 @@ export const ProviderDetails = () => {
             <ProviderDetailsGallery provider={provider} />
           </TabsContent>
         </Tabs>
+      </div>
+
+      <div>
+        <div className="sticky top-24 space-y-6">
+          <BookingsSection provider={provider} />
+        </div>
       </div>
     </div>
   );
