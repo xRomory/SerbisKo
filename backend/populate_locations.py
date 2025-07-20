@@ -3,7 +3,6 @@ import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.location import Location
-from database import Base
 from dotenv import load_dotenv
 
 load_dotenv()
