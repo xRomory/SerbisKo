@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "@/api/axios";
+import { useRegionsAndCities } from "@/hooks/useRegionsAndCities";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Select,
   SelectTrigger,
@@ -11,11 +14,24 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { AlertCircle } from "lucide-react";
 
 export const ProvidersSignupForm = () => {
-  const [error, setError] = useState<string>("");
+  const { regionMap, regions, loading: loadingRegions } = useRegionsAndCities();
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<{
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+    contactNumber?: string;
+    address?: string;
+    region?: string;
+    city?: string;
+    api?: string;
+  }>({});
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -24,15 +40,63 @@ export const ProvidersSignupForm = () => {
     confirmPassword: "",
     contactNumber: "",
     address: "",
+    region: "",
+    city: "",
+    role: "provider",
   });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+
+    if (error[id as keyof typeof error])
+      setError((prev) => ({ ...prev, [id]: undefined }));
+  };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError({});
+
+    if (!termsAccepted) {
+      setError({ api: "You must accept the terms and conditions" });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const payload = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        confirm_password: formData.confirmPassword,
+        phone_number: formData.contactNumber,
+        address_line: formData.address,
+        region: formData.region,
+        city: formData.city,
+        role: formData.role,
+      };
+
+      await api.post("/auth/signup", payload);
+
+      window.location.href = "/login";
+    } catch (err: any) {
+      setError(err.response?.data?.detail || "Signup failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSignupSubmit} className="space-y-4">
+        {error.api && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4 mr-2" />
+            <AlertDescription>{error.api}</AlertDescription>
+          </Alert>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">
@@ -43,8 +107,12 @@ export const ProvidersSignupForm = () => {
               name="firstName"
               placeholder="Juan"
               value={formData.firstName}
+              onChange={handleInputChange}
               required
             />
+            {error.firstName && (
+              <p className="text-sm text-destructive">{error.firstName}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="lastName">
@@ -55,8 +123,12 @@ export const ProvidersSignupForm = () => {
               name="lastName"
               placeholder="Dela Cruz"
               value={formData.lastName}
+              onChange={handleInputChange}
               required
             />
+            {error.lastName && (
+              <p className="text-sm text-destructive">{error.lastName}</p>
+            )}
           </div>
         </div>
 
@@ -69,8 +141,12 @@ export const ProvidersSignupForm = () => {
             name="email"
             placeholder="example@email.com"
             value={formData.email}
+            onChange={handleInputChange}
             required
           />
+          {error.email && (
+            <p className="text-sm text-destructive">{error.email}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -83,26 +159,25 @@ export const ProvidersSignupForm = () => {
                 <SelectValue placeholder="Select Service" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
+                <SelectItem value="cleaning">Cleaning</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="contact">
+            <Label htmlFor="contactNumber">
               Phone Number <span className="text-destructive">*</span>
             </Label>
             <Input
-              id="contact"
-              name="contact"
+              id="contactNumber"
+              name="contactNumber"
               placeholder="+63"
               value={formData.contactNumber}
+              onChange={handleInputChange}
               required
             />
+            {error.contactNumber && (
+              <p className="text-sm text-destructive">{error.contactNumber}</p>
+            )}
           </div>
         </div>
 
@@ -111,12 +186,17 @@ export const ProvidersSignupForm = () => {
             Address Line <span className="text-destructive">*</span>
           </Label>
           <Input
+            type="text"
             id="address"
             name="address"
             placeholder="e.g. 123 Rizal St., Brgy. Malinis"
             value={formData.address}
+            onChange={handleInputChange}
             required
           />
+          {error.address && (
+            <p className="text-sm text-destructive">{error.address}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -124,37 +204,55 @@ export const ProvidersSignupForm = () => {
             <Label htmlFor="region">
               Region <span className="text-destructive">*</span>
             </Label>
-            <Select>
+            <Select
+              value={formData.region}
+              onValueChange={(value) => {
+                setFormData((prev) => ({ ...prev, region: value, city: "" }));
+              }}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select Region" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
+                {regions.map((region) => (
+                  <SelectItem key={region} value={region}>
+                    {region}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
+
+            {error.region && (
+              <p className="text-sm text-destructive">{error.region}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="city">
               City <span className="text-destructive">*</span>
             </Label>
-            <Select>
+            <Select
+              value={formData.city}
+              onValueChange={(value) =>
+                setFormData((prev) => ({ ...prev, city: value }))
+              }
+              disabled={loadingRegions || !formData.region}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select City" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
+                {(regionMap[formData.region] || []).map((city) => (
+                  <SelectItem key={city} value={city}>
+                    {city}
+                  </SelectItem>
+                  
+                ))}
+                {loadingRegions && <p className="text-sm text-muted-foreground">Loading regions...</p>}
               </SelectContent>
             </Select>
+            {error.city && (
+              <p className="text-sm text-destructive">{error.city}</p>
+            )}
           </div>
         </div>
 
@@ -165,11 +263,16 @@ export const ProvidersSignupForm = () => {
             </Label>
             <Input
               id="password"
+              type="password"
               name="password"
               placeholder="Enter password"
               value={formData.password}
+              onChange={handleInputChange}
               required
             />
+            {error.password && (
+              <p className="text-sm text-destructive">{error.password}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">
@@ -177,11 +280,18 @@ export const ProvidersSignupForm = () => {
             </Label>
             <Input
               id="confirmPassword"
+              type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
               value={formData.confirmPassword}
+              onChange={handleInputChange}
               required
             />
+            {error.confirmPassword && (
+              <p className="text-sm text-destructive">
+                {error.confirmPassword}
+              </p>
+            )}
           </div>
         </div>
 

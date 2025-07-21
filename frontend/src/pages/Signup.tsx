@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CustomerSignupForm } from "@/components/SignupPage/CustomerSignupForm";
 import { ProvidersSignupForm } from "@/components/SignupPage/ProvidersSignupForm";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,11 +13,10 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { Mail, AlertCircle, ArrowLeftIcon } from "lucide-react";
+import { Mail, ArrowLeftIcon } from "lucide-react";
 import { LuFacebook } from "react-icons/lu";
 
 export const Signup = () => {
-  const [error, setError] = useState<string>("");
   const [activeTab, setActiveTab] = useState("customer");
 
   return (
@@ -43,12 +41,6 @@ export const Signup = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {error && (
-                <Alert variant="destructive" className="mb-4">
-                  <AlertCircle className="h-4 w-4 mr-2" />
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
               <Tabs
                 value={activeTab}
                 onValueChange={setActiveTab}
