@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import * as yup from "yup";
 import { Link } from "react-router-dom";
+import { api } from "@/api/axios";
+import { userSchema } from "@/schema/schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Select,
   SelectTrigger,
@@ -11,27 +15,106 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { AlertCircle } from "lucide-react";
 
 export const CustomerSignupForm = () => {
-  const [error, setError] = useState<string>("");
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<{
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+    contactNumber?: string;
+    address?: string;
+    region?: string;
+    city?: string;
+    api?: string;
+    message?: string;
+  }>({});
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    contactNumber: "",
+    address: "",
+    region: "",
+    city: "",
     password: "",
     confirmPassword: "",
-    contactNumber: "",
+    role: "customer",
   });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+
+    if (error[id as keyof typeof error])
+      setError((prev) => ({ ...prev, [id]: undefined }));
+  };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError({});
+
+    if (!termsAccepted) {
+      setError({ message: "You must accept the terms and conditions." });
+    }
+
+    try {
+      await userSchema.validate(formData, { abortEarly: false });
+
+      const payload = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone_number: formData.contactNumber,
+        address: formData.address,
+        region: formData.region,
+        city: formData.city,
+        password: formData.password,
+        confirm_password: formData.confirmPassword,
+        role: formData.role,
+      };
+
+      await api.post("/auth/signup", payload);
+
+      window.location.href = "/login";
+    } catch (err: any) {
+      if (err instanceof yup.ValidationError) {
+        const newError: typeof error = {};
+
+        err.inner.forEach((errors) => {
+          if (errors.path)
+            newError[errors.path as keyof typeof newError] = errors.message;
+        });
+        setError(newError);
+      } else {
+        setError({
+          api:
+            err instanceof Error
+              ? err.message
+              : "Signup failed. Please try again",
+        });
+      }
+
+      setError(err.response?.data?.detail || "Sign up Failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSignupSubmit} className="space-y-4">
+        {error.api && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4 mr-2" />
+            <AlertDescription>{error.api}</AlertDescription>
+          </Alert>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">
@@ -42,8 +125,12 @@ export const CustomerSignupForm = () => {
               name="firstName"
               placeholder="Juan"
               value={formData.firstName}
+              onChange={handleInputChange}
               required
             />
+            {error.firstName && (
+              <p className="text-sm text-destructive">{error.firstName}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="lastName">
@@ -54,8 +141,12 @@ export const CustomerSignupForm = () => {
               name="lastName"
               placeholder="Dela Cruz"
               value={formData.lastName}
+              onChange={handleInputChange}
               required
             />
+            {error.lastName && (
+              <p className="text-sm text-destructive">{error.lastName}</p>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -68,21 +159,46 @@ export const CustomerSignupForm = () => {
               name="email"
               placeholder="example@email.com"
               value={formData.email}
+              onChange={handleInputChange}
               required
             />
+            {error.email && (
+              <p className="text-sm text-destructive">{error.email}</p>
+            )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="contact">
+            <Label htmlFor="contactNumber">
               Phone Number <span className="text-destructive">*</span>
             </Label>
             <Input
-              id="contact"
-              name="contact"
+              id="contactNumber"
+              name="contactNumber"
               placeholder="+63"
               value={formData.contactNumber}
+              onChange={handleInputChange}
               required
             />
+            {error.contactNumber && (
+              <p className="text-sm text-destructive">{error.contactNumber}</p>
+            )}
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="address">
+            Address Line <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="address"
+            name="address"
+            placeholder="e.g. 123 Rizal St., Brgy. Malinis"
+            value={formData.address}
+            onChange={handleInputChange}
+            required
+          />
+          {error.address && (
+            <p className="text-sm text-destructive">{error.address}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -103,6 +219,10 @@ export const CustomerSignupForm = () => {
                 <SelectItem value="Manila">Manila</SelectItem>
               </SelectContent>
             </Select>
+
+            {error.region && (
+              <p className="text-sm text-destructive">{error.region}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="city">
@@ -121,6 +241,10 @@ export const CustomerSignupForm = () => {
                 <SelectItem value="Manila">Manila</SelectItem>
               </SelectContent>
             </Select>
+
+            {error.city && (
+              <p className="text-sm text-destructive">{error.city}</p>
+            )}
           </div>
         </div>
 
@@ -131,23 +255,36 @@ export const CustomerSignupForm = () => {
             </Label>
             <Input
               id="password"
+              type="password"
               name="password"
+              onChange={handleInputChange}
               placeholder="Enter password"
               value={formData.password}
+              
               required
             />
+            {error.password && (
+              <p className="text-sm text-destructive">{error.password}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">
               Confirm Password <span className="text-destructive">*</span>
             </Label>
             <Input
+              type="password"
               id="confirmPassword"
               name="confirmPassword"
               placeholder="Confirm Password"
+              onChange={handleInputChange}
               value={formData.confirmPassword}
               required
             />
+            {error.confirmPassword && (
+              <p className="text-sm text-destructive">
+                {error.confirmPassword}
+              </p>
+            )}
           </div>
         </div>
 
@@ -190,8 +327,6 @@ export const CustomerSignupForm = () => {
           {isLoading ? "Creating account..." : "Create Account"}
         </Button>
       </form>
-
-     
     </>
   );
 };

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "@/api/axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,12 +9,26 @@ import {
   SelectContent,
   SelectTrigger,
 } from "@/components/ui/select";
-
 import { Search } from "lucide-react";
 
 export const ServiceForm = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [location, setLocation] = useState<string>("Anywhere");
+  const [location, setLocation] = useState<string>("");
+  const [cities, setCities] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await api.get("/locations/cities");
+        setCities(response.data);
+      } catch (error) {
+        console.error("Error fetching cities endpoints: ", error)
+        setCities([]);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   return (
     <div className="mx-auto w-full max-w-[500px] bg-background p-4 rounded-lg shadow-lg">
@@ -39,15 +54,14 @@ export const ServiceForm = () => {
 
         <Select value={location} onValueChange={setLocation}>
           <SelectTrigger>
-            <SelectValue />
+            <SelectValue placeholder="Select a city..." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Anywhere">Anywhere</SelectItem>
-            <SelectItem value="Manila">Manila</SelectItem>
-            <SelectItem value="Quezon City">Quezon City</SelectItem>
-            <SelectItem value="Makati City">Makati City</SelectItem>
-            <SelectItem value="Cebu City">Cebu City</SelectItem>
-            <SelectItem value="Davao City">Davao City</SelectItem>
+            {cities.map((city) => (
+              <SelectItem key={city} value={city}>
+                {city}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Button type="submit" className="w-full font-normal">Search</Button>

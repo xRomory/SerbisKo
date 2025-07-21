@@ -1,4 +1,3 @@
-// import React from "react";
 import { providersData } from "@/mock/mock-data";
 import { useParams } from "react-router-dom";
 import { ProviderDetails } from "@/components/ProviderProfile/ProviderDetails";
