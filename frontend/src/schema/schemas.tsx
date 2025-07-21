@@ -16,4 +16,8 @@ export const userSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Confirm your password"),
+  contactNumber: yup
+    .string()
+    .matches(/^(09\d{9}|(\+639|639)\d{9})$/, "Please enter a valid PH phone number")
+    .required("Phone number is required"),
 });

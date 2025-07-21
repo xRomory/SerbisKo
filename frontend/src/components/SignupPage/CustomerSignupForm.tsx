@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as yup from "yup";
+import { useRegionsAndCities } from "@/hooks/useRegionsAndCities";
 import { Link } from "react-router-dom";
 import { api } from "@/api/axios";
 import { userSchema } from "@/schema/schemas";
@@ -18,6 +19,7 @@ import {
 import { AlertCircle } from "lucide-react";
 
 export const CustomerSignupForm = () => {
+  const { regionMap, regions, loading: loadingRegions } = useRegionsAndCities();
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<{
@@ -61,6 +63,8 @@ export const CustomerSignupForm = () => {
 
     if (!termsAccepted) {
       setError({ message: "You must accept the terms and conditions." });
+      setLoading(false);
+      return;
     }
 
     try {
@@ -71,7 +75,7 @@ export const CustomerSignupForm = () => {
         last_name: formData.lastName,
         email: formData.email,
         phone_number: formData.contactNumber,
-        address: formData.address,
+        address_line: formData.address,
         region: formData.region,
         city: formData.city,
         password: formData.password,
@@ -99,8 +103,6 @@ export const CustomerSignupForm = () => {
               : "Signup failed. Please try again",
         });
       }
-
-      setError(err.response?.data?.detail || "Sign up Failed");
     } finally {
       setLoading(false);
     }
@@ -206,17 +208,21 @@ export const CustomerSignupForm = () => {
             <Label htmlFor="Region">
               Region <span className="text-destructive">*</span>
             </Label>
-            <Select>
+            <Select
+              value={formData.region}
+              onValueChange={(value) => {
+                setFormData((prev) => ({ ...prev, region: value, city: "" }));
+              }}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select Region" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
+                {regions.map((region) => (
+                  <SelectItem key={region} value={region}>
+                    {region}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -228,17 +234,27 @@ export const CustomerSignupForm = () => {
             <Label htmlFor="city">
               City <span className="text-destructive">*</span>
             </Label>
-            <Select>
+            <Select
+              value={formData.city}
+              onValueChange={(value) =>
+                setFormData((prev) => ({ ...prev, city: value }))
+              }
+              disabled={loadingRegions || !formData.region}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select City" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
-                <SelectItem value="Manila">Manila</SelectItem>
+                {(regionMap[formData.region] || []).map((city) => (
+                  <SelectItem key={city} value={city}>
+                    {city}
+                  </SelectItem>
+                ))}
+                {loadingRegions && (
+                  <p className="text-sm text-muted-foreground">
+                    Loading regions...
+                  </p>
+                )}
               </SelectContent>
             </Select>
 
@@ -260,7 +276,6 @@ export const CustomerSignupForm = () => {
               onChange={handleInputChange}
               placeholder="Enter password"
               value={formData.password}
-              
               required
             />
             {error.password && (
