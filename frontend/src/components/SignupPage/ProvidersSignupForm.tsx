@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { api } from "@/api/axios";
 import { useRegionsAndCities } from "@/hooks/useRegionsAndCities";
@@ -15,6 +16,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { AlertCircle } from "lucide-react";
+import { userSchema } from "@/schema/schemas";
 
 export const ProvidersSignupForm = () => {
   const { regionMap, regions, loading: loadingRegions } = useRegionsAndCities();
@@ -59,12 +61,15 @@ export const ProvidersSignupForm = () => {
 
     if (!termsAccepted) {
       setError({ api: "You must accept the terms and conditions" });
+      setLoading(false);
       return;
     }
 
     setLoading(true);
 
     try {
+      await userSchema.validate(formData, { abortEarly: false });
+
       const payload = {
         first_name: formData.firstName,
         last_name: formData.lastName,
@@ -82,7 +87,24 @@ export const ProvidersSignupForm = () => {
 
       window.location.href = "/login";
     } catch (err: any) {
-      setError(err.response?.data?.detail || "Signup failed");
+      if (err instanceof yup.ValidationError) {
+        const newError: typeof error = {};
+
+        err.inner.forEach((errors) => {
+          if (errors.path)
+            newError[errors.path as keyof typeof newError] = errors.message;
+        });
+        setError(newError);
+      } else {
+        setError({
+          api:
+            err instanceof Error
+              ? err.message
+              : "Signup failed. Please try again",
+        });
+      }
+
+      setError(err.response?.data?.detail || "Sign up Failed");
     } finally {
       setLoading(false);
     }
@@ -245,9 +267,12 @@ export const ProvidersSignupForm = () => {
                   <SelectItem key={city} value={city}>
                     {city}
                   </SelectItem>
-                  
                 ))}
-                {loadingRegions && <p className="text-sm text-muted-foreground">Loading regions...</p>}
+                {loadingRegions && (
+                  <p className="text-sm text-muted-foreground">
+                    Loading regions...
+                  </p>
+                )}
               </SelectContent>
             </Select>
             {error.city && (
