@@ -1,10 +1,18 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import type { NavItem, AuthButton } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Menu, Search } from "lucide-react";
+import { LogOut, Menu, Search, User } from "lucide-react";
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
@@ -21,8 +29,20 @@ const AUTH_BUTTONS: AuthButton[] = [
 
 export const Navbar = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
+
+  const getInitials = (name?: string) => {
+    if (!name) return "U";
+
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+  };
 
   useEffect(() => {
     if (showMobileSearch && searchInputRef.current) {
@@ -58,7 +78,7 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center md:space-x-4">
             <form role="search" className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -67,21 +87,53 @@ export const Navbar = () => {
                 className="pl-8"
               />
             </form>
-            {AUTH_BUTTONS.map((button) => (
-              <Button key={button.href} asChild variant={button.variant}>
-                <Link to={button.href}>{button.label}</Link>
-              </Button>
-            ))}
+            {!user ? (
+              AUTH_BUTTONS.map((button) => (
+                <Button key={button.href} asChild variant={button.variant}>
+                  <Link to={button.href}>{button.label}</Link>
+                </Button>
+              ))
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost"
+                    className="relative h-10 w-10 rounded-full border border-primary"
+                  >
+                    <Avatar className="h-9 w-9">
+                      <AvatarImage src="" alt={user.first_name + " " + user.last_name} />
+                      <AvatarFallback>
+                        {getInitials(user.first_name)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="center"
+                  forceMount
+                  className="w-56 bg-ghost-hover"
+                >
+                  
+                    <div className="text-sm font-normal items-start p-2">{user.first_name} {user.last_name}</div>
+                  
+                  <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/user-dashboard")}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer" onClick={logout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
 
         {/* Mobile Nav Menu */}
         <div className="md:hidden flex space-x-2">
           {showMobileSearch ? (
-            <form 
-              role="search" 
-              className="relative flex-1"
-            >
+            <form role="search" className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
@@ -91,8 +143,8 @@ export const Navbar = () => {
               />
             </form>
           ) : (
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setShowMobileSearch(true)}
               aria-label="Show search"
             >

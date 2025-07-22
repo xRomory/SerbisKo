@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,19 +14,32 @@ import {
   CardFooter,
   CardContent,
   CardDescription,
-} from "../ui/card";
+} from "@/components/ui/card";
 import { AlertCircle, Mail } from "lucide-react";
 import { LuFacebook } from "react-icons/lu";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Login logic
+    setIsLoading(true);
+    setError("");
+
+    try {
+      await login({ email, password });
+      navigate("/");
+    } catch (err) {
+      setError("Error: " + (err instanceof Error ? err.message : String(error)));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,6 +66,8 @@ export const LoginForm = () => {
             <Input
               id="email"
               type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               placeholder="mail@example.com"
               required
             />
@@ -69,6 +85,8 @@ export const LoginForm = () => {
             <Input
               id="password"
               type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               placeholder="Password..."
               required
             />

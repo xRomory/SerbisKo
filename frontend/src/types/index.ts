@@ -1,3 +1,36 @@
+export interface AuthContextType {
+  user: { 
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    address_line: string;
+    region: string;
+    city: string;
+    role: string;
+    user_id: string;
+  } | null;
+  token: string | null;
+  login: (data: { email: string; password: string; }) => Promise<void>;
+  logout: () => void;
+}
+
+export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  address_line: string;
+  region: string;
+  city: string;
+  role: string;
+  user_id: string;
+  expires_in: number;
+  created_at: string;
+};
+
 export interface NavItem {
   label: string;
   href: string;
