@@ -34,16 +34,6 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
 
-  const getInitials = (name?: string) => {
-    if (!name) return "U";
-
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
-
   useEffect(() => {
     if (showMobileSearch && searchInputRef.current) {
       searchInputRef.current.focus();
@@ -78,7 +68,7 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center md:space-x-4">
+          <div className="hidden md:flex items-center md:space-x-2">
             <form role="search" className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -98,12 +88,12 @@ export const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="ghost"
-                    className="relative h-10 w-10 rounded-full border border-primary"
+                    className="ml-4 relative h-10 w-10 rounded-full border border-primary"
                   >
                     <Avatar className="h-9 w-9">
                       <AvatarImage src="" alt={user.first_name + " " + user.last_name} />
                       <AvatarFallback>
-                        {getInitials(user.first_name)}
+                        {user.first_name[0]}{user.last_name[0]}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -116,7 +106,11 @@ export const Navbar = () => {
                   
                     <div className="text-sm font-normal items-start p-2">{user.first_name} {user.last_name}</div>
                   
-                  <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/user-dashboard")}>
+                  <DropdownMenuItem className="cursor-pointer" onClick={() => {
+                    if(user && user.username) {
+                      navigate(`/customer/${user.username}`)
+                    }
+                  }}>
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>

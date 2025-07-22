@@ -228,7 +228,7 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
                   <h3 className="text-sm font-medium text-muted-foreground">
                     Region
                   </h3>
-                  <p>{userData.firstName}</p>
+                  <p>{userData.region}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground">

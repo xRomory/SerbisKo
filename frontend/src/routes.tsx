@@ -11,11 +11,11 @@ export const routes = [
     element: <MainLayout />,
     children: [
       { index: true, element: <LandingPage /> },
-      { path: "/customer", element: <CustomerProfilePage /> },
+      { path: "/customer/:username", element: <CustomerProfilePage /> },
       { path: "/provider/:id", element: <ProviderProfilePage /> },
       { path: "*", element: <NotFound /> },
     ]
   },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
-]
+];

@@ -1,5 +1,6 @@
 export interface AuthContextType {
   user: { 
+    username: string;
     first_name: string;
     last_name: string;
     email: string;
@@ -18,6 +19,7 @@ export interface AuthContextType {
 export interface AuthResponse {
   access_token: string;
   token_type: string;
+  username: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -49,11 +51,13 @@ export interface LinkItem {
 }
 
 export interface UserData {
+  username: string;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
   address: string;
+  region: string;
   city: string;
   bio: string;
 }
