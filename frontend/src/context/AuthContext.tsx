@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem(
       "user",
       JSON.stringify({
+        username: response.username,
         first_name: response.first_name,
         last_name: response.last_name,
         email: response.email,
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
     setToken(response.access_token);
     setUser({
+      username: response.username,
       first_name: response.first_name,
       last_name: response.last_name,
       email: response.email,

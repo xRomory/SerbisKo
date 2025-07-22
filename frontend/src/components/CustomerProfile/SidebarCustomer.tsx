@@ -35,7 +35,7 @@ export default function SidebarCustomer({ userData }: SidebarCustomerProps) {
         <CardHeader className="flex flex-col items-center text-center pb-2">
           <div className="relative">
             <Avatar className="h-24 w-24 border-4 border-primary">
-              <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt={`${userData.firstName} ${userData.lastName}`} />
+              <AvatarImage src="" alt={`${userData.firstName} ${userData.lastName}`} />
               <AvatarFallback>{userData.firstName[0]}{userData.lastName[0]}</AvatarFallback>
             </Avatar>
             <Button 

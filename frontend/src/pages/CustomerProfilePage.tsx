@@ -1,18 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 import type { UserData } from "@/types";
 import { CustomerMainContent } from "@/components/CustomerProfile/CustomerMainContent";
 import SidebarCustomer from "@/components/CustomerProfile/SidebarCustomer";
 
 export const CustomerProfilePage = () => {
+  const { user } = useAuth();
   const [userData, setUserData] = useState<UserData>({
-    firstName: "Michelle",
-    lastName: "Lim",
-    email: "michelle.lim@example.com",
-    phoneNumber: "+63 912 345 6789",
-    address: "123 Emerald Street, Ortigas Center",
-    city: "Pasig City",
-    bio: "I'm a busy professional looking for reliable service providers to help with home maintenance and other tasks.",
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+    region: "",
+    city: "",
+    bio: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setUserData({
+        username: user?.username || "",
+        firstName: user?.first_name || "",
+        lastName: user?.last_name || "",
+        email: user?.email || "",
+        phoneNumber: user?.first_name || "",
+        address: user?.address_line || "",
+        region: user?.region || "",
+        city: user?.city || "",
+        bio: "",
+      });
+    }
+  }, [user]);
 
   return (
     <main className="py-12">
