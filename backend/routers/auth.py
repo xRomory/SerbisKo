@@ -5,7 +5,7 @@ from schemas.auth import SignUpRequest, LoginRequest, AuthResponse
 from services.auth import verify_password, get_password_hash, create_access_token
 from models.user import User
 from config import settings
-from common.utils import utcnow
+from common.utils import generate_unique_username
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -19,7 +19,9 @@ def signup(data: SignUpRequest, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Passwords do not match")
     
     hashed_pw = get_password_hash(data.password)
+    username = generate_unique_username(db)
     new_user = User(
+        username = username,
         first_name = data.first_name,
         last_name = data.last_name,
         email = data.email,

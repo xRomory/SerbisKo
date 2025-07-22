@@ -4,6 +4,7 @@ from datetime import datetime
 from common.types import PasswordStr, PHPhoneFormat, UserRoleEnum
 
 class UserBase(BaseModel):
+    username: str
     first_name: str
     last_name: str
     email: EmailStr
@@ -19,6 +20,7 @@ class UserCreate(UserBase):
     
 class UserOut(BaseModel):
     public_id: str
+    username: str
     first_name: str
     last_name: str
     email: EmailStr
