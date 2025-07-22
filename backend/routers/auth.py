@@ -46,6 +46,7 @@ def signup(data: SignUpRequest, db: Session = Depends(get_db)):
     return AuthResponse(
         access_token=token,
         token_type="bearer",
+        username=new_user.username,
         first_name=new_user.first_name,
         last_name=new_user.last_name,
         email=new_user.email,
@@ -74,6 +75,7 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     return AuthResponse(
         access_token=token,
         token_type="bearer",
+        username=user.username,
         first_name=user.first_name,
         last_name=user.last_name,
         email=user.email,

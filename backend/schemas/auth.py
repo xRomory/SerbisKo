@@ -4,6 +4,7 @@ from datetime import datetime
 from common.types import PHPhoneFormat, UserRoleEnum, PasswordStr
 
 class SignUpRequest(BaseModel):
+    username: str
     first_name: str
     last_name: str
     email: EmailStr
@@ -22,6 +23,7 @@ class LoginRequest(BaseModel):
 class AuthResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
+    username: str
     first_name: str
     last_name: str
     email: EmailStr
