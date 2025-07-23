@@ -14,25 +14,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle, 
-  AlertDialogTrigger
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Pencil, X } from "lucide-react";
-
 
 interface UserProfileTabProps {
   userData: CustomerUserData;
@@ -123,17 +121,15 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
                     onChange={handleInputChange}
                   />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="address">Address Line</Label>
-                <Input
-                  id="address"
-                  name="address"
-                  value={editedData.address}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="address">Address Line</Label>
+                  <Input
+                    id="address"
+                    name="address"
+                    value={editedData.address}
+                    onChange={handleInputChange}
+                  />
+                </div>
                 <div className="space-y-2">
                   <Label htmlFor="region">Region</Label>
                   <Select
@@ -172,16 +168,15 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="bio">Bio</Label>
-                <Textarea
-                  id="bio"
-                  name="bio"
-                  value={editedData.bio}
-                  onChange={handleInputChange}
-                  rows={4}
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    id="username"
+                    name="username"
+                    value={editedData.username}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
               <Button onClick={handleSaveProfile}>Save Profile</Button>
             </div>
@@ -232,9 +227,9 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground">
-                    Bio
+                    Username
                   </h3>
-                  <p>{userData.bio}</p>
+                  <p>{userData.username}</p>
                 </div>
               </div>
             </div>
@@ -251,7 +246,9 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Email Notifications</p>
-              <p className="text-sm text-muted-foreground">Receive email about bookings and promotions</p>
+              <p className="text-sm text-muted-foreground">
+                Receive email about bookings and promotions
+              </p>
             </div>
             <Switch defaultChecked />
           </div>
@@ -259,7 +256,9 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Two-Factor Authentication</p>
-              <p className="text-sm text-muted-foreground">Add an extra layer of security to your account</p>
+              <p className="text-sm text-muted-foreground">
+                Add an extra layer of security to your account
+              </p>
             </div>
             <Switch />
           </div>
@@ -272,7 +271,8 @@ export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete your account and remove all your data from our servers.
+                  This action cannot be undone. This will permanently delete
+                  your account and remove all your data from our servers.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

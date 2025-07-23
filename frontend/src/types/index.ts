@@ -10,6 +10,7 @@ export interface AuthContextType {
     city: string;
     role: string;
     user_id: string;
+    profile_photo?: string;
   } | null;
   token: string | null;
   login: (data: { email: string; password: string; }) => Promise<void>;
@@ -73,7 +74,8 @@ export interface CustomerUserData {
   address: string;
   region: string;
   city: string;
-  bio: string;
+  profilePhoto?: string;
+  userId?: string;
 }
 
 export interface ProviderReview {
