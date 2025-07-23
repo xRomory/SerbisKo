@@ -34,3 +34,6 @@ class UserOut(BaseModel):
     
     class Config:
         orm_mode = True
+        
+class ProfilePhotoUpdate(BaseModel):
+    profile_photo: str
