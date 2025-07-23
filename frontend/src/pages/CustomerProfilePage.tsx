@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import type { UserData } from "@/types";
+import type { CustomerUserData } from "@/types";
 import { CustomerMainContent } from "@/components/CustomerProfile/CustomerMainContent";
-import SidebarCustomer from "@/components/CustomerProfile/SidebarCustomer";
+import { SidebarCustomer } from "@/components/CustomerProfile/SidebarCustomer";
 
 export const CustomerProfilePage = () => {
   const { user } = useAuth();
-  const [userData, setUserData] = useState<UserData>({
+  const [userData, setUserData] = useState<CustomerUserData>({
     username: "",
     firstName: "",
     lastName: "",

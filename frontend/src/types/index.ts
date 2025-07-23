@@ -33,6 +33,20 @@ export interface AuthResponse {
   created_at: string;
 };
 
+export interface CustomerCredentials {
+  username?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  address_line: string;
+  region: string;
+  city: string;
+  password: string;
+  confirm_password: string;
+  role: "customer";
+}
+
 export interface NavItem {
   label: string;
   href: string;
@@ -50,7 +64,7 @@ export interface LinkItem {
   href: string
 }
 
-export interface UserData {
+export interface CustomerUserData {
   username: string;
   firstName: string;
   lastName: string;

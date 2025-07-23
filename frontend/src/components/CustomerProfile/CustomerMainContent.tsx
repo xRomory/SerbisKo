@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import type { UserData } from "@/types";
+import type { CustomerUserData } from "@/types";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { CustomerProfileTab } from "@/components/CustomerProfile/CustomerProfileTab";
 import CustomerBookingsTab from "@/components/CustomerProfile/CustomerBookingsTab";
 import CustomerSavedServices from "@/components/CustomerProfile/CustomerSavedServices";
 
 interface CustomerMainContentProps {
-  userData: UserData;
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  userData: CustomerUserData;
+  setUserData: React.Dispatch<React.SetStateAction<CustomerUserData>>;
 }
 
 export const CustomerMainContent: React.FC<CustomerMainContentProps> = ({
