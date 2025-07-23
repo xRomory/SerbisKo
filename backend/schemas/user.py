@@ -21,6 +21,7 @@ class UserCreate(UserBase):
 class UserOut(BaseModel):
     public_id: str
     username: str
+    profile_photo: str
     first_name: str
     last_name: str
     email: EmailStr

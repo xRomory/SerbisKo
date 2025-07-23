@@ -10,6 +10,8 @@ class User(Base):
     public_id = Column(String, unique=True, default=lambda: str(uuid.uuid4()))
     
     username = Column(String, unique=True, nullable=True)
+    profile_photo = Column(String, nullable=True)
+    
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
