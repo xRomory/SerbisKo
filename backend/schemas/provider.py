@@ -15,7 +15,7 @@ class ProviderProfileBase(BaseModel):
     longitude: Optional[float] = None
     bio: Optional[str] = None
     available_days: Optional[List[str]] = None
-    profile_photo: Optional[str] = None
+    portfolio_photo: Optional[List[str]] = None
     experience_years: Optional[int] = None
     rate_per_hour: Optional[float] = None
     flat_fee: Optional[float] = None
