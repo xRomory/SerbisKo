@@ -22,7 +22,7 @@ class ServiceProviderProfile(Base):
     services_offered = Column(JSON, nullable=True)  # List of service IDs, e.g. [1, 2, 3]
     bio = Column(String, nullable=True)
     available_days = Column(JSON, nullable=True)    # List of available days, e.g. ["Monday", "Tuesday", "Friday"]
-    profile_photo = Column(String, nullable=True)
+    portfolio_photo = Column(JSON, nullable=True)
     experience_years = Column(Integer, nullable=True)
     rate_per_hour = Column(Float, nullable=True)
     flat_fee = Column(Float, nullable=True)
