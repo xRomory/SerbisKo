@@ -15,7 +15,6 @@ export const CustomerProfilePage = () => {
     address: "",
     region: "",
     city: "",
-    bio: "",
   });
 
   useEffect(() => {
@@ -29,7 +28,6 @@ export const CustomerProfilePage = () => {
         address: user?.address_line || "",
         region: user?.region || "",
         city: user?.city || "",
-        bio: "",
       });
     }
   }, [user]);

@@ -91,7 +91,7 @@ export const Navbar = () => {
                     className="ml-4 relative h-10 w-10 rounded-full border border-primary"
                   >
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src="" alt={user.first_name + " " + user.last_name} />
+                      <AvatarImage src={user.profile_photo || ""} alt={user.first_name + " " + user.last_name} />
                       <AvatarFallback>
                         {user.first_name[0]}{user.last_name[0]}
                       </AvatarFallback>
