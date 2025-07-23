@@ -1,5 +1,5 @@
 import React from "react";
-import type { UserData } from "@/types";
+import type { CustomerUserData } from "@/types";
 import {
   Card,
   CardContent,
@@ -35,11 +35,11 @@ import { Pencil, X } from "lucide-react";
 
 
 interface UserProfileTabProps {
-  userData: UserData;
+  userData: CustomerUserData;
   isEditing: boolean;
   setIsEditing: (value: boolean) => void;
-  editedData: UserData;
-  setEditedData: React.Dispatch<React.SetStateAction<UserData>>;
+  editedData: CustomerUserData;
+  setEditedData: React.Dispatch<React.SetStateAction<CustomerUserData>>;
 }
 
 export const CustomerProfileTab: React.FC<UserProfileTabProps> = ({

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { useRegionsAndCities } from "@/hooks/useRegionsAndCities";
 import { Link } from "react-router-dom";
-import { api } from "@/api/axios";
+import { createAccountCustomer } from "@/services/api";
 import { userSchema } from "@/schema/schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,35 +17,36 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { AlertCircle } from "lucide-react";
+import type { CustomerCredentials } from "@/types";
 
 export const CustomerSignupForm = () => {
   const { regionMap, regions, loading: loadingRegions } = useRegionsAndCities();
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<{
-    firstName?: string;
-    lastName?: string;
+    first_name?: string;
+    last_name?: string;
     email?: string;
     password?: string;
-    confirmPassword?: string;
-    contactNumber?: string;
-    address?: string;
+    confirm_password?: string;
+    phone_number?: string;
+    address_line?: string;
     region?: string;
     city?: string;
     api?: string;
     message?: string;
   }>({});
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+  const [formData, setFormData] = useState<CustomerCredentials>({
+    first_name: "",
+    last_name: "",
     email: "",
-    contactNumber: "",
-    address: "",
+    phone_number: "",
+    address_line: "",
     region: "",
     city: "",
     password: "",
-    confirmPassword: "",
-    role: "customer",
+    confirm_password: "",
+    role: "customer"
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,22 +70,7 @@ export const CustomerSignupForm = () => {
 
     try {
       await userSchema.validate(formData, { abortEarly: false });
-
-      const payload = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        phone_number: formData.contactNumber,
-        address_line: formData.address,
-        region: formData.region,
-        city: formData.city,
-        password: formData.password,
-        confirm_password: formData.confirmPassword,
-        role: formData.role,
-      };
-
-      await api.post("/auth/signup", payload);
-
+      await createAccountCustomer(formData);
       window.location.href = "/login";
     } catch (err: any) {
       if (err instanceof yup.ValidationError) {
@@ -119,35 +105,35 @@ export const CustomerSignupForm = () => {
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="firstName">
+            <Label htmlFor="first_name">
               First Name <span className="text-destructive">*</span>
             </Label>
             <Input
-              id="firstName"
-              name="firstName"
+              id="first_name"
+              name="first_name"
               placeholder="Juan"
-              value={formData.firstName}
+              value={formData.first_name}
               onChange={handleInputChange}
               required
             />
-            {error.firstName && (
-              <p className="text-sm text-destructive">{error.firstName}</p>
+            {error.first_name && (
+              <p className="text-sm text-destructive">{error.first_name}</p>
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="lastName">
+            <Label htmlFor="last_name">
               Last Name <span className="text-destructive">*</span>
             </Label>
             <Input
-              id="lastName"
-              name="lastName"
+              id="last_name"
+              name="last_name"
               placeholder="Dela Cruz"
-              value={formData.lastName}
+              value={formData.last_name}
               onChange={handleInputChange}
               required
             />
-            {error.lastName && (
-              <p className="text-sm text-destructive">{error.lastName}</p>
+            {error.last_name && (
+              <p className="text-sm text-destructive">{error.last_name}</p>
             )}
           </div>
         </div>
@@ -169,37 +155,37 @@ export const CustomerSignupForm = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="contactNumber">
+            <Label htmlFor="phone_number">
               Phone Number <span className="text-destructive">*</span>
             </Label>
             <Input
-              id="contactNumber"
-              name="contactNumber"
+              id="phone_number"
+              name="phone_number"
               placeholder="+63"
-              value={formData.contactNumber}
+              value={formData.phone_number}
               onChange={handleInputChange}
               required
             />
-            {error.contactNumber && (
-              <p className="text-sm text-destructive">{error.contactNumber}</p>
+            {error.phone_number && (
+              <p className="text-sm text-destructive">{error.phone_number}</p>
             )}
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="address">
+          <Label htmlFor="address_line">
             Address Line <span className="text-destructive">*</span>
           </Label>
           <Input
-            id="address"
-            name="address"
+            id="address_line"
+            name="address_line"
             placeholder="e.g. 123 Rizal St., Brgy. Malinis"
-            value={formData.address}
+            value={formData.address_line}
             onChange={handleInputChange}
             required
           />
-          {error.address && (
-            <p className="text-sm text-destructive">{error.address}</p>
+          {error.address_line && (
+            <p className="text-sm text-destructive">{error.address_line}</p>
           )}
         </div>
 
@@ -283,21 +269,21 @@ export const CustomerSignupForm = () => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">
+            <Label htmlFor="confirm_password">
               Confirm Password <span className="text-destructive">*</span>
             </Label>
             <Input
               type="password"
-              id="confirmPassword"
-              name="confirmPassword"
+              id="confirm_password"
+              name="confirm_password"
               placeholder="Confirm Password"
               onChange={handleInputChange}
-              value={formData.confirmPassword}
+              value={formData.confirm_password}
               required
             />
-            {error.confirmPassword && (
+            {error.confirm_password && (
               <p className="text-sm text-destructive">
-                {error.confirmPassword}
+                {error.confirm_password}
               </p>
             )}
           </div>

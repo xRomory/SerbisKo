@@ -1,4 +1,6 @@
-import type { UserData } from "@/types";
+import React from "react";
+import type { CustomerUserData } from "@/types";
+import { uploadToImageCloudinary } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { 
   Card, 
@@ -25,10 +27,14 @@ import {
 } from "lucide-react";
 
 interface SidebarCustomerProps {
-  userData: UserData;
+  userData: CustomerUserData;
 }
 
-export default function SidebarCustomer({ userData }: SidebarCustomerProps) {
+export const SidebarCustomer = ({ userData }: SidebarCustomerProps) => {
+  // const handleProfilePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  // };
+
   return (
     <div className="lg:col-span-1">
       <Card>
