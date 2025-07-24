@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import type { CustomerUserData } from "@/types";
+import { useAuth } from "@/context/AuthContext";
 import { uploadToImageCloudinary, updateUserProfilePicture } from "@/services/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,8 +35,8 @@ interface SidebarCustomerProps {
 
 export const SidebarCustomer = ({ userData, onProfilePhotoUpdate }: SidebarCustomerProps) => {
   const photoRef = useRef<HTMLInputElement | null>(null);
+  const { user, setUser } = useAuth();
   const [uploading, setUploading] = useState<boolean>(false);
-  const [profilePhoto, setProfilePhoto] = useState(userData.profilePhoto);
 
   const handleProfilePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,8 +46,13 @@ export const SidebarCustomer = ({ userData, onProfilePhotoUpdate }: SidebarCusto
     try {
       const imageUrl = await uploadToImageCloudinary(file);
       await updateUserProfilePicture(imageUrl);
-      setProfilePhoto(imageUrl);
       onProfilePhotoUpdate?.(imageUrl);
+
+      if(user) {
+        const updatedUser = { ...user, profile_photo: imageUrl }
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      }
     } catch (err) {
       console.error('Failed to upload profile photo:', err);
       alert("Failed to upload profile photo. Please try again.");
@@ -65,7 +71,7 @@ export const SidebarCustomer = ({ userData, onProfilePhotoUpdate }: SidebarCusto
         <CardHeader className="flex flex-col items-center text-center pb-2">
           <div className="relative">
             <Avatar className="h-24 w-24 border-4 border-primary">
-              <AvatarImage src={profilePhoto} alt={`${userData.firstName} ${userData.lastName}`} className="object-cover"/>
+              <AvatarImage src={user?.profile_photo} alt={`${userData.firstName} ${userData.lastName}`} className="object-cover"/>
               <AvatarFallback>{userData.firstName[0]}{userData.lastName[0]}</AvatarFallback>
             </Avatar>
             <Button 

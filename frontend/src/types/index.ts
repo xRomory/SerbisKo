@@ -12,6 +12,7 @@ export interface AuthContextType {
     user_id: string;
     profile_photo?: string;
   } | null;
+  setUser: React.Dispatch<React.SetStateAction<AuthContextType["user"]>>;
   token: string | null;
   login: (data: { email: string; password: string; }) => Promise<void>;
   logout: () => void;
@@ -32,6 +33,7 @@ export interface AuthResponse {
   user_id: string;
   expires_in: number;
   created_at: string;
+  profile_photo: string;
 };
 
 export interface CustomerCredentials {

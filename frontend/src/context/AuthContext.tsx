@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         city: response.city,
         role: response.role,
         user_id: response.user_id,
+        profile_photo: response.profile_photo,
       })
     );
     setToken(response.access_token);
@@ -49,6 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       city: response.city,
       role: response.role,
       user_id: response.user_id,
+      profile_photo: response.profile_photo,
     });
   };
 
@@ -73,6 +75,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value = {
     user,
+    setUser,
     token,
     login,
     logout,
