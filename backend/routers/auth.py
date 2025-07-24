@@ -86,7 +86,8 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
         role=user.role,
         user_id=str(user.public_id),
         expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-        created_at=user.created_at
+        created_at=user.created_at,
+        profile_photo=user.profile_photo
     )
     
 # Deletion of test data (Will deleted once api is connected to frontend)
