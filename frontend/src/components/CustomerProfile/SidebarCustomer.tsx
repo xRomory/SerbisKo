@@ -71,8 +71,8 @@ export const SidebarCustomer = ({ userData, onProfilePhotoUpdate }: SidebarCusto
         <CardHeader className="flex flex-col items-center text-center pb-2">
           <div className="relative">
             <Avatar className="h-24 w-24 border-4 border-primary">
-              <AvatarImage src={user?.profile_photo} alt={`${userData.firstName} ${userData.lastName}`} className="object-cover"/>
-              <AvatarFallback>{userData.firstName[0]}{userData.lastName[0]}</AvatarFallback>
+              <AvatarImage src={user?.profile_photo} alt={`${userData.first_name} ${userData.last_name}`} className="object-cover"/>
+              <AvatarFallback>{userData.first_name[0]}{userData.last_name[0]}</AvatarFallback>
             </Avatar>
             <Button 
               size="icon" 
@@ -97,7 +97,7 @@ export const SidebarCustomer = ({ userData, onProfilePhotoUpdate }: SidebarCusto
               Uploading...
             </div>
           )}
-          <CardTitle className="mt-4 font-medium">{userData.firstName} {userData.lastName}</CardTitle>
+          <CardTitle className="mt-4 font-medium">{userData.first_name} {userData.last_name}</CardTitle>
           <CardDescription className="flex items-center">
             <MapPin className="h-3 w-3 mr-1" />
             {userData.city}

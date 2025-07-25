@@ -50,6 +50,19 @@ export interface CustomerCredentials {
   role: "customer";
 }
 
+export interface CustomerUserData {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  address_line: string;
+  region: string;
+  city: string;
+  user_id?: string;
+  profile_photo?: string;
+}
+
 export interface NavItem {
   label: string;
   href: string;
@@ -65,19 +78,6 @@ export interface AuthButton {
 export interface LinkItem {
   label: string;
   href: string
-}
-
-export interface CustomerUserData {
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  region: string;
-  city: string;
-  profilePhoto?: string;
-  userId?: string;
 }
 
 export interface ProviderReview {

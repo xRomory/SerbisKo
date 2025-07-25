@@ -8,11 +8,11 @@ export const CustomerProfilePage = () => {
   const { user } = useAuth();
   const [userData, setUserData] = useState<CustomerUserData>({
     username: "",
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    phoneNumber: "",
-    address: "",
+    phone_number: "",
+    address_line: "",
     region: "",
     city: "",
   });
@@ -21,11 +21,11 @@ export const CustomerProfilePage = () => {
     if (user) {
       setUserData({
         username: user?.username || "",
-        firstName: user?.first_name || "",
-        lastName: user?.last_name || "",
+        first_name: user?.first_name || "",
+        last_name: user?.last_name || "",
         email: user?.email || "",
-        phoneNumber: user?.first_name || "",
-        address: user?.address_line || "",
+        phone_number: user?.phone_number || "",
+        address_line: user?.address_line || "",
         region: user?.region || "",
         city: user?.city || "",
       });

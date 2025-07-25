@@ -56,7 +56,7 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Navbar */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center lg:space-x-6 space-x-4">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
@@ -86,14 +86,18 @@ export const Navbar = () => {
             ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button 
+                  <Button
                     variant="ghost"
                     className="ml-4 relative h-10 w-10 rounded-full border border-primary"
                   >
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src={user.profile_photo || ""} alt={user.first_name + " " + user.last_name} />
+                      <AvatarImage
+                        src={user.profile_photo || ""}
+                        alt={user.first_name + " " + user.last_name}
+                      />
                       <AvatarFallback>
-                        {user.first_name[0]}{user.last_name[0]}
+                        {(user.first_name?.[0] || "")}
+                        {(user.last_name?.[0] || "")}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -103,14 +107,18 @@ export const Navbar = () => {
                   forceMount
                   className="w-56 bg-ghost-hover"
                 >
-                  
-                    <div className="text-sm font-normal items-start p-2">{user.first_name} {user.last_name}</div>
-                  
-                  <DropdownMenuItem className="cursor-pointer" onClick={() => {
-                    if(user && user.username) {
-                      navigate(`/customer/${user.username}`)
-                    }
-                  }}>
+                  <div className="text-sm font-normal items-start p-2">
+                    {user.first_name} {user.last_name}
+                  </div>
+
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={() => {
+                      if (user && user.username) {
+                        navigate(`/customer/${user.username}`);
+                      }
+                    }}
+                  >
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
@@ -154,11 +162,40 @@ export const Navbar = () => {
             </SheetTrigger>
             <SheetContent side="right">
               <nav className="flex flex-col space-y-4 mt-8 px-6 py-4">
+                <div className="mb-4 space-y-2 flex items-center">
+                  {user && (
+                    <Button
+                      variant="ghost"
+                      className="w-full flex justify-start p-0"
+                      onClick={() => {
+                        if (user && user.username) {
+                          navigate(`/customer/${user.username}`);
+                          setIsOpen(false);
+                        }
+                      }}
+                    >
+                      <Avatar className="h-9 w-9 border-2 border-primary ">
+                        <AvatarImage
+                          src={user.profile_photo || ""}
+                          alt={user.first_name + " " + user.last_name}
+                        />
+                        <AvatarFallback>
+                          {(user.first_name?.[0] || "")}
+                          {(user.last_name?.[0] || "")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-lg font-medium">
+                        {user.first_name} {user.last_name}
+                      </span>
+                    </Button>
+                  )}
+                </div>
+
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="text-lg font-medium"
+                    className="text-lg font-normal"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
@@ -166,13 +203,25 @@ export const Navbar = () => {
                 ))}
 
                 <div className="flex flex-col space-y-2 pt-4">
-                  {AUTH_BUTTONS.map((button) => (
-                    <Button key={button.href} asChild variant={button.variant}>
-                      <Link to={button.href} onClick={() => setIsOpen(false)}>
-                        {button.label}
-                      </Link>
-                    </Button>
-                  ))}
+                  {!user ? (
+                    AUTH_BUTTONS.map((button) => (
+                      <Button
+                        key={button.href}
+                        asChild
+                        variant={button.variant}
+                      >
+                        <Link to={button.href} onClick={() => setIsOpen(false)}>
+                          {button.label}
+                        </Link>
+                      </Button>
+                    ))) : (
+                      <Button
+                        onClick={logout}
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Log out
+                      </Button>
+                    )}
                 </div>
               </nav>
             </SheetContent>

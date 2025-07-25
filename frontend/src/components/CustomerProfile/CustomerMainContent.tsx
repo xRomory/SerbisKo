@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { CustomerUserData } from "@/types";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { CustomerProfileTab } from "@/components/CustomerProfile/CustomerProfileTab";
@@ -15,6 +15,11 @@ export const CustomerMainContent: React.FC<CustomerMainContentProps> = ({
   setUserData,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editedData, setEditedData] = useState<CustomerUserData>({ ...userData });
+
+  useEffect(() => {
+    if(isEditing) setEditedData({ ...userData });
+  }, [isEditing, userData]);
 
   return (
     <div className="lg:col-span-3 space-y-6">
@@ -30,8 +35,9 @@ export const CustomerMainContent: React.FC<CustomerMainContentProps> = ({
             userData={userData}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
-            editedData={{ ...userData }}
-            setEditedData={setUserData}
+            editedData={editedData}
+            setEditedData={setEditedData}
+            setUserData={setUserData}
           />
         </TabsContent>
         <TabsContent value="bookings">
