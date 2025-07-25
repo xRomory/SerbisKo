@@ -5,7 +5,11 @@ import type { AuthContextType, AuthResponse } from "@/types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ 
+  children
+}: { children: ReactNode 
+
+}) => {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
   const [token, setToken] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -71,6 +75,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setToken(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    window.location.href = "/"
   };
 
   const value = {

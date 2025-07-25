@@ -45,3 +45,8 @@ export const updateUserProfilePicture = async (profilePhotoUrl: string) => {
     throw error;
   }
 };
+
+export const editUserProfile = async (data: Partial<CustomerUserData>) => {
+  const response = await api.patch("/profile/edit", data);
+  return response.data;
+};
