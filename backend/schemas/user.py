@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from datetime import datetime
 from common.types import PasswordStr, PHPhoneFormat, UserRoleEnum
@@ -32,8 +32,7 @@ class UserOut(BaseModel):
     reated_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
         
 class ProfilePhotoUpdate(BaseModel):
     profile_photo: str

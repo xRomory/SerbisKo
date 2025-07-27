@@ -8,13 +8,15 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     
     DATABASE_URL: str = Field(..., env="DATABASE_URL")
+    
+    # --- For Self-Hosting Server ---
     cors_origins: List[str] = []
     
     @field_validator("cors_origins", mode="before")
     def split_origins(cls, v):
         if isinstance(v, str):
             v = v.strip()
-            if v.startswith("[]") and v.endswith("]"):
+            if v.startswith("[") and v.endswith("]"):
                 import json
                 return json.loads(v)
             return [i.strip() for i in v.split(",") if i.strip()]

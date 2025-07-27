@@ -2,9 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import auth, location, user
 from config import settings
-import os
-
-origins = os.getenv("CORS_ORIGINS", "http:localhost:3000").split(",")
 
 app = FastAPI()
 
