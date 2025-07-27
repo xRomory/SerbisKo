@@ -37,3 +37,12 @@ class UserOut(BaseModel):
         
 class ProfilePhotoUpdate(BaseModel):
     profile_photo: str
+    
+class UserEdit(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    username: Optional[str] = None
+    phone_number: Optional[str] = None
+    address_line: Optional[str] = None
+    region: Optional[str] = None
+    city: Optional[str] = None
