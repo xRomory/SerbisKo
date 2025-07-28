@@ -34,7 +34,7 @@ class AuthResponse(BaseModel):
     user_id: str
     expires_in: int
     created_at: datetime
-    profile_photo: str
+    profile_photo: Optional[str] = None
     
     class Config:
         json_encoders = {

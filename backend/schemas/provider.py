@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional, List
 from datetime import datetime
 from enum import Enum
@@ -30,5 +30,4 @@ class ProviderProfileOut(ProviderProfileBase):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
     
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
