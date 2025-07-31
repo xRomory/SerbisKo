@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export interface AuthContextType {
   user: { 
     username: string;
@@ -16,7 +18,7 @@ export interface AuthContextType {
   token: string | null;
   login: (data: { email: string; password: string; }) => Promise<void>;
   logout: () => void;
-}
+};
 
 export interface AuthResponse {
   access_token: string;
@@ -48,7 +50,7 @@ export interface CustomerCredentials {
   password: string;
   confirm_password: string;
   role: "customer";
-}
+};
 
 export interface CustomerUserData {
   username: string;
@@ -61,37 +63,43 @@ export interface CustomerUserData {
   city: string;
   user_id?: string;
   profile_photo?: string;
-}
+};
 
 export interface NavItem {
   label: string;
   href: string;
   external?: boolean;
-}
+};
+
+export interface DashbordItem {
+  title: string;
+  href: string;
+  icon: LucideIcon;
+};
 
 export interface AuthButton {
   label: string;
   href: string;
   variant?: "default" | "ghost" | "outline";
-}
+};
 
 export interface LinkItem {
   label: string;
   href: string
-}
+};
 
 export interface ProviderReview {
   author: string;
   rating: number;
   date: string;
   comment: string;
-}
+};
 
 export interface ProviderPackageRate {
   name: string;
   price: string;
   description: string;
-}
+};
 
 export interface ProvidersType {
   id: string;
@@ -113,4 +121,4 @@ export interface ProvidersType {
   profileImage: string;
   galleryImages: string[];
   reviews: ProviderReview[];
-}
+};

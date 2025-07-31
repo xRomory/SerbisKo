@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import type { NavItem, AuthButton } from "@/types";
+import { NAV_ITEMS, AUTH_BUTTONS } from "@/types/navItems";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,19 +13,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { LogOut, Menu, Search, User } from "lucide-react";
-
-const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Providers", href: "/providers" },
-  { label: "Maps", href: "/maps" },
-  { label: "About", href: "/about" },
-];
-
-const AUTH_BUTTONS: AuthButton[] = [
-  { label: "Log In", href: "/login", variant: "ghost" },
-  { label: "Sign Up", href: "/signup", variant: "default" },
-];
 
 export const Navbar = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
