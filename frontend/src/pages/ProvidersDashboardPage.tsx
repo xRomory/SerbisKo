@@ -1,3 +1,4 @@
+import DashboardMainContent from "@/components/ProviderDashboard/DashboardMainContent";
 import DashboardNav from "@/components/ProviderDashboard/DashboardNav";
 import { MobileNav } from "@/components/ProviderDashboard/MobileNav";
 
@@ -14,7 +15,7 @@ export const ProvidersDashboardPage = () => {
       <DashboardNav />
       <MobileNav />
       <main className="flex-1 p-6 overflow-y-auto lg:ml-0">
-        
+        <DashboardMainContent />
       </main>
     </div>
   )

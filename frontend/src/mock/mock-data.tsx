@@ -281,3 +281,108 @@ export const providersData = [
     ],
   },
 ];
+
+export const dashboardData = {
+  stats: {
+    bookings: {
+      total: 128,
+      pending: 12,
+      completed: 116,
+      percentComplete: 90,
+      trend: "+12%",
+    },
+    earnings: {
+      total: "₱58,750",
+      pending: "₱4,250",
+      available: "₱54,500",
+      trend: "+8%",
+    },
+    reviews: {
+      total: 87,
+      averageRating: 4.8,
+      responseRate: 98,
+    },
+  },
+  recentBookings: [
+    {
+      id: "B-7829",
+      client: {
+        name: "Maria Santos",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+      },
+      service: "Deep House Cleaning",
+      date: "July 20, 2025",
+      time: "09:00 AM",
+      status: "confirmed",
+      amount: "₱2,500",
+    },
+    {
+      id: "B-7830",
+      client: {
+        name: "Gabriel Reyes",
+        image: "https://randomuser.me/api/portraits/men/35.jpg",
+      },
+      service: "Regular House Cleaning",
+      date: "July 21, 2025",
+      time: "02:00 PM",
+      status: "pending",
+      amount: "₱1,800",
+    },
+    {
+      id: "B-7831",
+      client: {
+        name: "Sofia Mendoza",
+        image: "https://randomuser.me/api/portraits/women/22.jpg",
+      },
+      service: "Deep House Cleaning",
+      date: "July 22, 2025",
+      time: "10:30 AM",
+      status: "confirmed",
+      amount: "₱2,500",
+    },
+  ],
+  topServices: [
+    {
+      name: "Deep House Cleaning",
+      bookings: 45,
+      revenue: "₱112,500",
+      rating: 4.9,
+    },
+    {
+      name: "Regular House Cleaning",
+      bookings: 72,
+      revenue: "₱129,600",
+      rating: 4.7,
+    },
+    {
+      name: "Move-out Cleaning",
+      bookings: 11,
+      revenue: "₱33,000",
+      rating: 4.8,
+    },
+  ],
+  recentReviews: [
+    {
+      client: {
+        name: "Camille Ramos",
+        image: "https://randomuser.me/api/portraits/women/68.jpg",
+      },
+      service: "Deep House Cleaning",
+      date: "July 15, 2025",
+      rating: 5,
+      comment:
+        "Excellent service! My house has never been this clean. Very professional and thorough.",
+    },
+    {
+      client: {
+        name: "Marco Diaz",
+        image: "https://randomuser.me/api/portraits/men/42.jpg",
+      },
+      service: "Regular House Cleaning",
+      date: "July 12, 2025",
+      rating: 4,
+      comment:
+        "Good job overall. Arrived on time and finished within schedule. Would book again.",
+    },
+  ],
+};
