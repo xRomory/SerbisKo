@@ -67,6 +67,7 @@ export const AuthProvider = ({
       setError(
         "Error: " + (err instanceof Error ? err.message : String(error))
       );
+      throw err;
     }
   };
 

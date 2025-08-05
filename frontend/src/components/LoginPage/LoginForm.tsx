@@ -36,7 +36,7 @@ export const LoginForm = () => {
       await login({ email, password });
       navigate("/");
     } catch (err) {
-      setError("Error: " + (err instanceof Error ? err.message : String(error)));
+      setError("Error: Invalid email or password");
     } finally {
       setIsLoading(false);
     }
