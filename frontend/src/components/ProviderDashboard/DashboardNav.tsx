@@ -13,6 +13,7 @@ export default function DashboardNav() {
   return (
     <>
       <div className="hidden lg:flex flex-col border-r border-primary w-64 fixed top-0 left-0 h-screen">
+        {/* Logo */}
         <div className="px-6 py-5 border-b border-border">
           <Link to="/" className="flex flex-col items-start">
             <span className="text-lg md:text-xl font-bold tracking-tight font-figtree">
