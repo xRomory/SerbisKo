@@ -2,7 +2,7 @@
 
 ![Made With](https://img.shields.io/badge/made%20with-love-red)
 ![Status](https://img.shields.io/badge/status-learning-blue)
-![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)
+<!-- ![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey) -->
 
 
 **SerbisKo** is an AI-powered local service finder built for the Filipino community. Whether you need a plumber, tutor, or cleaner, SerbisKo connects everyday people with skilled local freelancers — fast, easy, and reliable.
