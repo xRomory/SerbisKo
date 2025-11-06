@@ -1,4 +1,4 @@
-# 🇵🇭🛠️ SerbisKo
+# SerbisKo
 
 ![Made With](https://img.shields.io/badge/made%20with-love-red)
 ![Status](https://img.shields.io/badge/status-learning-blue)
@@ -11,7 +11,7 @@
 
 ---
 
-## 📌 Overview
+## Overview
 
 In the Philippines, many skilled workers don’t know how to market themselves online unless they’re connected to a company or rely on word-of-mouth via Facebook. **SerbisKo** gives these freelancers a platform to offer their services, gain reviews, and get discovered — even if they don’t know how to write a long promotional post.
 
@@ -19,7 +19,7 @@ This platform is built **by a Filipino, for Filipinos**, and aims to become the 
 
 ---
 
-## 🧠 AI-Assisted Matching (Coming Soon)
+## AI-Assisted Matching (Coming Soon)
 
 SerbisKo will feature an AI-powered assistant that understands natural Filipino/Taglish input and connects them to the right local service provider.
 
@@ -32,11 +32,11 @@ For example:
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
-📦 See: [`frontend/package.json`](./frontend/package.json) | [`backend/requirements.txt`](./backend/requirements.txt)
+See: [`frontend/package.json`](./frontend/package.json) | [`backend/requirements.txt`](./backend/requirements.txt)
 
-### 🖥️ Frontend
+### Frontend
 
 - **ReactJS 19** + **TypeScript**
 - **Vite** for fast dev environment
@@ -48,7 +48,7 @@ For example:
 - **Radix UI Primitives** – for accessible components
 - **Lucide Icons**, `clsx`, `tailwind-merge` and more
 
-### 📦 Frontend Dependencies (from `package.json`)
+### Frontend Dependencies (from `package.json`)
 
 <details>
 <summary>Click to expand</summary>
@@ -93,7 +93,7 @@ For example:
 
 ---
 
-### 🔧 Backend 
+### Backend 
 
 **Core Technologies:**
 - **FastAPI** (v0.116.1) - Async API framework
@@ -103,7 +103,7 @@ For example:
 - **Alembic** (v1.16.4) - Database migrations
 - **Bcrypt** (v4.3.0) - Password hashing
 
-> 💡 **Why FastAPI over Django?**  
+> **Why FastAPI over Django?**  
 > FastAPI is simpler to scaffold, async-first, and better suited for lightweight, modular microservices — perfect for building scalable and AI-ready APIs.
 
 **Key Dependencies:**
@@ -161,7 +161,7 @@ uvicorn==0.35.0
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 SerbisKo/
@@ -173,19 +173,19 @@ SerbisKo/
 
 ---
 
-## 🔑 Key Features (Planned)
+## Key Features (Planned)
 
-- 🔍 Search and filter providers by service, rating, and location  
-- 🧑‍🔧 Profile pages for workers with reviews, photos, and pricing  
-- 🗓️ Booking system (calendar or simple request-based)  
-- 💬 User-generated ratings and reviews  
-- 🧠 AI-powered service suggestion (coming soon)  
-- 🔐 Authentication for clients and freelancers  
-- 📱 Mobile-friendly responsive UI  
+- Search and filter providers by service, rating, and location  
+- Profile pages for workers with reviews, photos, and pricing  
+- Booking system (calendar or simple request-based)  
+- User-generated ratings and reviews  
+- AI-powered service suggestion (coming soon)  
+- Authentication for clients and freelancers  
+- Mobile-friendly responsive UI  
 
 ---
 
-## 🧪 Local Development
+## Local Development
 
 ### Frontend
 
@@ -206,23 +206,23 @@ uvicorn main:app --reload
 
 ---
 
-## 🚀 Future Roadmap
+## Future Roadmap
 
-- 🤖 AI integration for user chat assistance  
-- 💸 Payment integration (GCash, Maya, bank transfer)  
-- 📱 Mobile app (PWA or React Native)  
-- 📍 Geo-targeted job matching  
-- 🛡️ Verification options (ID/barangay, ratings)  
+- AI integration for user chat assistance  
+- Payment integration (GCash, Maya, bank transfer)  
+- Mobile app (PWA or React Native)  
+- Geo-targeted job matching  
+- Verification options (ID/barangay, ratings)  
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 I welcome ideas, suggestions, and pull requests!  
 Help me build the future of local Filipino freelancing.
 
 ---
-
+<!--
 ## 📄 License
 
 This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
@@ -236,7 +236,7 @@ You are free to:
 - NonCommercial — You may not use the material for commercial purposes.
 
 Read more: [https://creativecommons.org/licenses/by-nc/4.0](https://creativecommons.org/licenses/by-nc/4.0)
-
+-->
 ---
 
 >  _**"You don’t need a big agency to get noticed — you just need a place where your skills speak for themselves."**_  
